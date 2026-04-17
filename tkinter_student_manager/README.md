@@ -1,4 +1,4 @@
-# Experiment 16 — GUI Design with Tkinter & MySQL Connectivity
+# Experiment 16 — GUI Design with Tkinter 
 **Course:** Programming Laboratory (DJS23ILPC403) | S.Y. B.Tech | D.J. Sanghvi College of Engineering
 
 ---
