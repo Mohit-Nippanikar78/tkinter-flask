@@ -1,0 +1,18 @@
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+*.pyc
+__pycache__/
+
+# macOS
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+

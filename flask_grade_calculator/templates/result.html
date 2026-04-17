@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Result</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .card h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 28px;
+        }
+
+        /* Subject marks table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 28px;
+        }
+
+        table th {
+            background: #f8f9fa;
+            color: #7f8c8d;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #f0f0f0;
+            color: #34495e;
+            font-size: 0.95rem;
+        }
+
+        table tr:last-child td { border-bottom: none; }
+
+        .mark-val {
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        /* Summary row */
+        .summary {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .summary-item {
+            text-align: center;
+        }
+
+        .summary-item .label {
+            font-size: 0.78rem;
+            color: #95a5a6;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 4px;
+        }
+
+        .summary-item .value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        /* Grade badge */
+        .grade-badge {
+            text-align: center;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+
+        .grade-badge .grade-letter {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .grade-badge .grade-label {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 8px;
+            opacity: 0.85;
+        }
+
+        /* Back button */
+        .back-btn {
+            display: block;
+            width: 100%;
+            padding: 13px;
+            background: #ecf0f1;
+            color: #2c3e50;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover { background: #dde1e4; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>📊 Your Result</h1>
+
+        <!-- Subject Marks Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Marks</th>
+                    <th>Out of</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subject, mark in marks %}
+                <tr>
+                    <td>{{ subject }}</td>
+                    <td class="mark-val">{{ mark }}</td>
+                    <td>100</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Summary Bar -->
+        <div class="summary">
+            <div class="summary-item">
+                <div class="label">Total</div>
+                <div class="value">{{ total }} / {{ max_total }}</div>
+            </div>
+            <div class="summary-item">
+                <div class="label">Percentage</div>
+                <div class="value">{{ percentage }}%</div>
+            </div>
+        </div>
+
+        <!-- Grade Badge — color changes based on grade -->
+        <div class="grade-badge" style="background: {{ grade_color }}1a; color: {{ grade_color }};">
+            <div class="grade-letter">{{ grade }}</div>
+            <div class="grade-label">
+                {% if grade == 'F' %}
+                    ❌ {{ grade_label }} — Better luck next time!
+                {% elif grade == 'C' or grade == 'B' %}
+                    👍 {{ grade_label }} — Keep pushing!
+                {% else %}
+                    🎉 {{ grade_label }} — Well done!
+                {% endif %}
+            </div>
+        </div>
+
+        <a href="/" class="back-btn">← Calculate Again</a>
+    </div>
+</body>
+</html>

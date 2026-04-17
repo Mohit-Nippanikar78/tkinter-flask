@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grade Calculator</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            padding: 40px;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .card h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .card .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            gap: 12px;
+        }
+
+        .form-group label {
+            width: 110px;
+            font-weight: 600;
+            color: #34495e;
+            font-size: 0.95rem;
+            flex-shrink: 0;
+        }
+
+        .form-group input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #2c3e50;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #3498db;
+        }
+
+        .form-group .out-of {
+            color: #95a5a6;
+            font-size: 0.85rem;
+            width: 40px;
+        }
+
+        .errors {
+            background: #fdecea;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            list-style: none;
+            color: #c0392b;
+            font-size: 0.88rem;
+        }
+
+        .errors li { margin-bottom: 4px; }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #ecf0f1;
+            margin: 24px 0;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.2s;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .submit-btn:active { transform: translateY(0); }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>📝 Grade Calculator</h1>
+        <p class="subtitle">Enter marks out of 100 for each subject</p>
+
+        {% if errors %}
+        <ul class="errors">
+            {% for error in errors %}
+            <li>⚠️ {{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <form action="/result" method="POST">
+            {% for subject in subjects %}
+            <div class="form-group">
+                <label for="{{ subject }}">{{ subject }}</label>
+                <input
+                    type="number"
+                    id="{{ subject }}"
+                    name="{{ subject }}"
+                    placeholder="0 – 100"
+                    min="0"
+                    max="100"
+                    required
+                >
+                <span class="out-of">/ 100</span>
+            </div>
+            {% endfor %}
+
+            <hr class="divider">
+
+            <button type="submit" class="submit-btn">Calculate Grade →</button>
+        </form>
+    </div>
+</body>
+</html>
